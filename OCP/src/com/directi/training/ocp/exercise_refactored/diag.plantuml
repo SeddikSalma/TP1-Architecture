@@ -1,0 +1,33 @@
+@startuml
+package com.ocp.exercise_refacto {
+
+    abstract class Resource {
+        +allocate() : int
+        +free(resourceId : int) : void
+        {abstract} -markSlotFree(resourceId : int) : void
+        {abstract} -findFreeSlot() : int
+        {abstract} -markSlotBusy(resourceId : int) : void
+    }
+
+    abstract class ResourceAllocator {
+        +allocate() : int
+        +free(resourceId : int) : void
+    }
+
+    class SpaceResourceAllocator extends Resource {
+        -findFreeSlot() : int
+        -markSlotBusy(resourceId : int) : void
+        -markSlotFree(resourceId : int) : void
+    }
+
+    class TimeResourceAllocator extends Resource {
+        -findFreeSlot() : int
+        -markSlotBusy(resourceId : int) : void
+        -markSlotFree(resourceId : int) : void
+    }
+
+   Resource <|-- TimeResourceAllocator
+    Resource <|-- SpaceResourceAllocator
+    ResourceAllocator --> Resource :uses
+}
+@enduml
